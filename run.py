@@ -101,6 +101,19 @@ def get_last_5_entries_sales():
 
     return columns
 
+def calculate_stock_data(data):
+    """
+    Calculate teh average stock for each item, adding 10%
+    """
+    print("Calculating stock data...\n")
+    new_stock_data = []
+
+    for column in data:
+        int_column = [int(num) for num in column]
+        average = sum(int_column) / len(int_column)
+        stock_num = average * 1.1
+        new_stock_data.append(round(stock_num))
+    return new_stock_data
 
 def main():
     """
