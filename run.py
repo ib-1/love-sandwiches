@@ -1,6 +1,5 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -101,9 +100,10 @@ def get_last_5_entries_sales():
 
     return columns
 
+
 def calculate_stock_data(data):
     """
-    Calculate teh average stock for each item, adding 10%
+    Calculate the average stock for each item type, adding 10%
     """
     print("Calculating stock data...\n")
     new_stock_data = []
@@ -113,7 +113,9 @@ def calculate_stock_data(data):
         average = sum(int_column) / len(int_column)
         stock_num = average * 1.1
         new_stock_data.append(round(stock_num))
+
     return new_stock_data
+
 
 def main():
     """
@@ -124,6 +126,9 @@ def main():
     update_worksheet(sales_data, "sales")
     new_surplus_data = calculate_surplus_data(sales_data)
     update_worksheet(new_surplus_data, "surplus")
+    sales_columns = get_last_5_entries_sales()
+    stock_data = calculate_stock_data(sales_columns)
+    update_worksheet(stock_data, "stock")
 
 
 print("Welcome to Love Sandwiches Data Automation")
